@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 
@@ -23,7 +24,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/about', function() {return view('about');})->name('about');
     
     Route::get('/book', [BookController::class, 'index'])->name('book');
-    Route::get('/book/{id}', [BookController::class, 'show']);
+    Route::get('/book/{book}', [BookController::class, 'show']);
 });
 
 require __DIR__.'/auth.php';
