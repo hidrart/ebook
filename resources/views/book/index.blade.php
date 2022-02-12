@@ -10,6 +10,13 @@
             <div class="bg-white rounded-lg p-6">
                 Book Index Page
             </div>
+            <form action="/book" class="mt-10 flex items-center space-x-6 rounded-lg">
+                <input name="title"
+                    class="rounded-md border-0 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full"
+                    type="text" placeholder="title" />
+                <button type="submit" class="bg-indigo-200 py-2 px-4 text-indigo-700 rounded-lg cursor-pointer">
+                    Search </button>
+            </form>
             <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3 w-full mt-10">
                 @foreach ($books as $book)
                 <a href="{{ url("/book/$book->id") }}" class="w-full bg-white p-10 rounded-lg">

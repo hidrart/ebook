@@ -14,6 +14,9 @@ class Order extends Model
         'book_id',
         'order_date',
     ];
+    
+    protected $with = ['book'];
+    protected $load = ['user'];
 
     public function user() {
         return $this->belongsTo(User::class);

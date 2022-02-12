@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->foreignId('user_id');
-            $table->dateTimeTz('order_date', $precision = 0);
+            $table->dateTimeTz('order_date');
         });
     }
 

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
 
 /*
@@ -20,8 +21,8 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => 'auth'], function() {
-    Route::get('/dashboard', function() {return view('dashboard');})->name('dashboard');
-    Route::get('/about', function() {return view('about');})->name('about');
+    Route::get('/dashboard', fn() => view('dashboard'))->name('dashboard');
+    Route::get('/about', fn() => view('about'))->name('about');
     
     Route::get('/book', [BookController::class, 'index'])->name('book');
     Route::get('/order', [OrderController::class, 'index'])->name('order');
@@ -36,7 +37,11 @@ Route::group(['middleware' => 'auth'], function() {
 });
 
 Route::group(['middleware' => ['auth', 'role:admin']], function(){
-    Route::get('/admin', function() {return view('admin');})->name('admin');
+    Route::get('/admin', [UserController::class, 'index'])->name('admin');
+    
+    Route::group(['prefix' => 'admin'], function() {
+        Route::get('/{user}', [UserController::class, 'show']);
+    });
 });
 
 require __DIR__.'/auth.php';

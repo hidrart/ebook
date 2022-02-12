@@ -22,15 +22,23 @@
                             <h3 class="text-sm text-indigo-700">{{ $book->author }}</h3>
                         </div>
                         <div role="img" aria-label="bookmark" class="w-1/10 text-indigo-700">
+                            @if ($book->order_id == null)
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
                             </svg>
+                            @else
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
+                                fill="currentColor">
+                                <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z" stroke-linecap="round"
+                                    stroke-linejoin="round" stroke-width="2" />
+                            </svg>
+                            @endif
                         </div>
                     </div>
                 </div>
-                <p class="text-slate-500 text-justify mt-4">{{ $book->description }}</p>
+                <p class="text-slate-500 text-justify mt-4">{!! nl2br(e($book->description)) !!}</p>
             </article>
         </div>
     </div>

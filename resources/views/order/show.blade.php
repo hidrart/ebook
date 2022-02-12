@@ -10,6 +10,7 @@
             <div class="bg-white rounded-lg p-6">
                 Ordered Book Page
             </div>
+            @if ($books->count())
             <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3 w-full mt-10">
                 @foreach ($books as $book)
                 <a href="{{ url("/book/$book->id") }}" class="w-full bg-white p-10 rounded-lg">
@@ -54,6 +55,7 @@
                 </a>
                 @endforeach
             </div>
+            @endif
         </div>
     </div>
 </x-app-layout>

@@ -8,8 +8,24 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white rounded-lg p-6">
-                Order Index Page
+                User Detail Page
             </div>
+
+            <div class="flex items-center border-b border-slate-100 p-6 mt-10 bg-white rounded-lg">
+                <img src="{{
+                    url("https://i.pravatar.cc/150?u={!! $user->email !!}")
+                }}"
+                alt="avatar"
+                class="w-12 h-12 rounded-full" />
+                <div class="flex justify-between w-full pl-4">
+                    <div class="w-9/10 flex flex-col">
+                        <h1 class="text-lg font-bold text-slate-900">{{ $user->name }}</h1>
+                        <h3 class="text-sm text-indigo-700">{{ $user->email }}</h3>
+                    </div>
+                </div>
+            </div>
+
+            @if ($orders->count())
             <table class="mt-10 min-w-full rounded-lg overflow-hidden">
                 <thead>
                     <tr class="text-gray-800 bg-gray-200 text-sm text-left font-semibold uppercase tracking-wider">
@@ -26,18 +42,19 @@
                         <td class="px-5 py-6 ">
                             <div class="flex items-center">
                                 <div class="w-10 h-10">
-                                    <img src="{{ url("https://i.pravatar.cc/150?u={!! $user->email !!}") }}"
+                                    <img src="{{
+                                        url("https://i.pravatar.cc/150?u={!! $user->email !!}")
+                                    }}"
                                     alt="avatar"
                                     class="w-full h-full rounded-full" />
                                 </div>
-                                <div class="flex flex-col">
-                                    <h3 class="ml-3 font-bold text-gray-800">{{ $user->name }}</h3>
-                                    <p class=" ml-3 text-sm">{{ $user->email }}</p>
-                                </div>
+                                <p class=" ml-3">
+                                    {{ $user->email }}
+                                </p>
                             </div>
                         </td>
                         <td class="px-5 py-6">
-                            <p>{{ $order->user->role }}</p>
+                            <p>{{ $user->role }}</p>
                         </td>
                         <td class="px-5 py-6">
                             <p>
@@ -46,7 +63,7 @@
                         </td>
                         <td class="px-5 py-6 pl-14">
                             <p>
-                                {{ App\Models\Book::where("order_id", $order->id)->get()->count() }}
+                                {{ $order->book->count() }}
                             </p>
                         </td>
                         <td class="px-5 py-6">
@@ -59,6 +76,7 @@
                     @endforeach
                 </tbody>
             </table>
+            @endif
         </div>
     </div>
 </x-app-layout>

@@ -15,6 +15,8 @@ class Book extends Model
         'description'
     ];
 
+    protected $load = ['order'];
+
     public function order() {
         return $this->belongsTo(Order::class);
     }

@@ -18,7 +18,8 @@ class OrderController extends Controller
     public function index()
     {
         return view('order.index', [
-            "orders" => Order::where("user_id", Auth::user()->id)->get(),
+            "user" => Auth::user(),
+            "orders" => Auth::user()->order
         ]);
     }
 
@@ -52,7 +53,7 @@ class OrderController extends Controller
     public function show(Order $order)
     {
         return view('order.show', [
-            "books" => Book::where("order_id", $order->id)->get()
+            "books" => $order->book
         ]);
     }
 
