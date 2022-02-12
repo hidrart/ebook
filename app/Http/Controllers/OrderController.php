@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use App\Models\Order;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 
@@ -15,7 +17,9 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        return view('order.index', [
+            "orders" => Order::where("user_id", Auth::user()->id)->get(),
+        ]);
     }
 
     /**
@@ -47,7 +51,9 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        return view('order.show', [
+            "books" => Book::where("order_id", $order->id)->get()
+        ]);
     }
 
     /**

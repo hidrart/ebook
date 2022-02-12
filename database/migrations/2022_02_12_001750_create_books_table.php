@@ -18,6 +18,7 @@ return new class extends Migration
             $table->timestamps();
             $table->text('title');
             $table->text('author');
+            $table->foreignId('order_id')->nullable();
             $table->longText('description');
         });
     }

@@ -23,13 +23,18 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('book')" :active="request()->routeIs('book')">
+                    <x-nav-link :href="route('book')" :active="request()->segment(1) == 'book'">
                         {{ __('Book') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('order')" :active="request()->segment(1) == 'order'">
+                        {{ __('Order') }}
                     </x-nav-link>
                 </div>
                 @if (Auth::user()->role == 'admin')
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('admin')" :active="request()->routeIs('admin')">
+                    <x-nav-link :href="route('admin')" :active="request()->segment(1) == 'admin'">
                         {{ __('Admin') }}
                     </x-nav-link>
                 </div>
@@ -115,10 +120,22 @@
             </x-responsive-nav-link>
         </div>
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('book')" :active="request()->routeIs('book')">
+            <x-responsive-nav-link :href="route('book')" :active="request()->segment(1) == 'book'">
                 {{ __('Book') }}
             </x-responsive-nav-link>
         </div>
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('order')" :active="request()->segment(1) == 'order'">
+                {{ __('Order') }}
+            </x-responsive-nav-link>
+        </div>
+        @if (Auth::user()->role == 'admin')
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('admin')" :active="request()->segment(1) == 'admin'">
+                {{ __('Admin') }}
+            </x-responsive-nav-link>
+        </div>
+        @endif
         @else
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('login')" :active="request()->routeIs('login')">

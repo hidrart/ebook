@@ -14,4 +14,13 @@ class Order extends Model
         'book_id',
         'order_date',
     ];
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }   
+
+    public function book() {
+        return $this->hasMany(Book::class);
+    }
+    
 }

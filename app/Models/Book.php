@@ -14,4 +14,8 @@ class Book extends Model
         'author',
         'description'
     ];
+
+    public function order() {
+        return $this->belongsTo(Order::class);
+    }
 }
