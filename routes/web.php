@@ -1,5 +1,6 @@
 <?php
 
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
@@ -24,7 +25,11 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/about', function() {return view('about');})->name('about');
     
     Route::get('/book', [BookController::class, 'index'])->name('book');
-    Route::get('/book/{book}', [BookController::class, 'show']);
+    Route::get('/book/{book}', [BookController::class, 'show']);    
+});
+
+Route::group(['middleware' => ['auth', 'role:admin']], function(){
+    Route::get('/admin', function() {return view('admin');})->name('admin');
 });
 
 require __DIR__.'/auth.php';
