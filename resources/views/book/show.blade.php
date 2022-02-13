@@ -11,7 +11,7 @@
                 Book Detail Page
             </div>
             <div class="mt-10 flex justify-end space-x-4">
-                <a href="{{ url()->previous() }}"
+                <a href="{{ url('/book') }}"
                     class="bg-indigo-200 py-2 px-4 text-indigo-700 rounded-lg cursor-pointer flex items-center space-x-2">
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"

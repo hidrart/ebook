@@ -27,7 +27,6 @@
             </div>
             <div class="p-10 mt-10 bg-white rounded-lg">
                 <h2 class="text-lg font-bold">Edit Book Data</h2>
-                <!-- Validation Errors -->
                 <form method="POST" action="{{ url("/book/$book->id") }}" class="mt-8 flex flex-col items-start gap-6">
                     @method('put')
                     @csrf

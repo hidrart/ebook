@@ -33,22 +33,10 @@
                         Search
                     </span>
                 </button>
-                @if (Auth::user()->role == 'admin')
-                <a href="{{ url('/book/create') }}"
-                    class="bg-indigo-200 py-2 px-4 text-indigo-700 rounded-lg cursor-pointer flex items-center space-x-2">
-                    <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                    </span>
-                    <span>
-                        Add
-                    </span>
-                </a>
-                @endif
             </form>
+            @if (session()->has('success'))
+            <x-validation-success class="mt-10" :success="session('success')" />
+            @endif
             <table class="mt-10 min-w-full rounded-lg overflow-hidden">
                 <thead>
                     <tr class="text-gray-800 bg-gray-200 text-sm text-left font-semibold uppercase tracking-wider">
@@ -63,14 +51,26 @@
                     @foreach ($users as $user)
                     <tr class="border-b border-gray-200 bg-white text-sm text-gray-500">
                         <td class="px-5 py-6 ">
-                            <div class="flex items-center">
+                            <div class="flex items-center space-x-2">
                                 <div class="w-10 h-10">
                                     <img src="{{ url("https://i.pravatar.cc/150?u={!! $user->email !!}") }}"
                                     alt="avatar"
                                     class="w-full h-full rounded-full" />
                                 </div>
                                 <div class="flex flex-col">
-                                    <h3 class="ml-3 font-bold text-gray-800">{{ $user->name }}</h3>
+                                    <div class="flex space-x-1 items-center">
+                                        <h3 class="ml-3 font-bold text-gray-800">{{ $user->name }}</h3>
+                                        @if ($user->role == 'admin')
+                                        <div class="pt-0.5">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-indigo-700"
+                                                viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd"
+                                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                        @endif
+                                    </div>
                                     <p class=" ml-3 text-sm">{{ $user->email }}</p>
                                 </div>
                             </div>
