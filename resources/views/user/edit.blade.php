@@ -8,7 +8,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white rounded-lg p-6">
-                User Detail Page
+                User Edit Page
             </div>
             <div class="mt-10 flex justify-end space-x-4">
                 <a href="{{ url()->previous() }}"
