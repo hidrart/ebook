@@ -46,7 +46,6 @@ class UserController extends Controller
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'role' => ['required', 'string'],
             'image' => ['image', 'file', 'max:2048']
         ]);
 

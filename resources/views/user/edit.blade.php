@@ -72,16 +72,6 @@
                         <input type="file" name="image"
                             class="w-full text-slate-500 bg-gray-100 rounded-md file:mr-4  file:py-2.5 file:px-4 file:rounded-l-md file:border-0 file:bg-indigo-200 file:text-indigo-700 file:font-sans mt-2 file:cursor-pointer" />
                     </label>
-                    <label class="block w-full">
-                        <span class="text-gray-700">User Role</span>
-                        <select name="role" id="role"
-                            class="w-full bg-gray-100 rounded-md mt-2 border-0 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                            <option value="" disabled>Role</option>
-                            <option value="user" @if (old('role', $user->role) == 'user') selected @endif>User</option>
-                            <option value="admin" @if (old('role', $user->role) == 'admin') selected @endif>Admin
-                            </option>
-                        </select>
-                    </label>
                     <input type="hidden" class="hidden" value="{{ $user->image }}" name="before">
                     <div class="flex justify-end w-full">
                         <button type="submit"
