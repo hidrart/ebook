@@ -48,4 +48,14 @@ class User extends Authenticatable
     public function order() {
         return $this->hasMany(Order::class);
     }
+
+    public function scopeFilter($query, array $filter) {
+        $query->when($filter['username'] ?? false, function($query, $username) {
+            $query->where('name', 'like', '%' . $username . '%');
+        });
+        $query->when($filter['role'] ?? false, function($query, $role) {
+            $query->where('role', 'like', '%' . $role . '%');
+        });
+        return $query;
+    }
 }

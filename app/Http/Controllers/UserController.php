@@ -14,18 +14,8 @@ class UserController extends Controller
      */
     public function index()
     {   
-        $user = User::latest();
-        
-        if (request('username')) {
-            $user->where('name', 'like', '%' . request('username') . '%');
-        }
-
-        if (request('role')) {
-            $user->where('role', 'like', '%' . request('role') . '%');   
-        }
-        
         return view('admin.index', [
-            "users" => $user->get()
+            "users" => User::latest()->filter(request(['username', 'role']))->paginate(10)
         ]);
     }
 

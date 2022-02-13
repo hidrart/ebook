@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\Order;
+use Illuminate\Auth\Events\Validated;
+use GrahamCampbell\ResultType\Success;
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 
@@ -16,14 +18,8 @@ class BookController extends Controller
      */
     public function index()
     {
-        $book = Book::latest();
-        
-        if (request('title')) {
-            $book->where('title', 'like', '%' . request('title') . '%');
-        }
-
         return view('book.index', [
-            "books" => $book->get()
+            "books" => Book::latest()->filter(request(['search']))->paginate(9)
         ]);
     }
 
@@ -34,7 +30,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        return view('book.create');
     }
 
     /**
@@ -45,7 +41,14 @@ class BookController extends Controller
      */
     public function store(StoreBookRequest $request)
     {
-        //
+        $validated = $request->validate([
+            "title" => ["required","max:255"],
+            "author" => ["required","max:255"],
+            "description" => ["required"],
+        ]);
+
+        Book::create($validated);
+        return redirect('/book')->with('success', 'Book successfully created!');
     }
 
     /**
@@ -69,7 +72,9 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        //
+        return view('book.edit', [
+            "book" => $book
+        ]);
     }
 
     /**
@@ -81,7 +86,14 @@ class BookController extends Controller
      */
     public function update(UpdateBookRequest $request, Book $book)
     {
-        //
+        $validated = $request->validate([
+            "title" => ["required","max:255"],
+            "author" => ["required","max:255"],
+            "description" => ["required"],
+        ]);
+
+        $book->update($validated);
+        return redirect("/book")->with('Success', "Book successfully updated");
     }
 
     /**
@@ -92,6 +104,7 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        $book->delete();
+        return redirect('/book')->with('success', 'Book successfully deleted!');
     }
 }

@@ -20,27 +20,41 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::group(['middleware' => ['auth', 'role:admin']], function() {
+    Route::group(['prefix' => 'admin'], function() {
+        Route::get('/', [UserController::class, 'index'])->name('admin');
+        Route::get('/{user}', [UserController::class, 'show']);
+    });
+    
+    Route::group(['prefix' => 'book'], function() {
+        Route::get('/create', [BookController::class, 'create']);
+        Route::post('/create', [BookController::class, 'store']);
+        
+        Route::get('/edit/{book:id}', [BookController::class, 'edit']);
+        Route::put('/{book:id}', [BookController::class, 'update']);
+        
+        Route::delete('/delete/{book:id}', [BookController::class, 'destroy']);
+    });
+    
+    Route::group(['prefix' => 'order'], function() {
+        Route::get('/edit', [OrderController::class, 'edit']);
+        Route::get('/create', [OrderController::class, 'create']);
+        Route::post('/create', [OrderController::class, 'store']);
+    });
+});
+
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/dashboard', fn() => view('dashboard'))->name('dashboard');
     Route::get('/about', fn() => view('about'))->name('about');
     
-    Route::get('/book', [BookController::class, 'index'])->name('book');
-    Route::get('/order', [OrderController::class, 'index'])->name('order');
-
     Route::group(['prefix' => 'book'], function() {
-        Route::get('/{book}', [BookController::class, 'show']); 
+        Route::get('/', [BookController::class, 'index'])->name('book');
+        Route::get('/{book:id}', [BookController::class, 'show']);
     });
-
-    Route::group(['prefix' => 'order'], function() {
-        Route::get('/{order}', [OrderController::class, 'show']);
-    });
-});
-
-Route::group(['middleware' => ['auth', 'role:admin']], function(){
-    Route::get('/admin', [UserController::class, 'index'])->name('admin');
     
-    Route::group(['prefix' => 'admin'], function() {
-        Route::get('/{user}', [UserController::class, 'show']);
+    Route::group(['prefix' => 'order'], function() {
+        Route::get('/', [OrderController::class, 'index'])->name('order');
+        Route::get('/{order:id}', [OrderController::class, 'show']);
     });
 });
 
