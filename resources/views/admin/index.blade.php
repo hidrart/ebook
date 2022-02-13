@@ -52,11 +52,8 @@
                     <tr class="border-b border-gray-200 bg-white text-sm text-gray-500">
                         <td class="px-5 py-6 ">
                             <div class="flex items-center space-x-2">
-                                <div class="w-10 h-10">
-                                    <img src="{{ url("https://i.pravatar.cc/150?u={!! $user->email !!}") }}"
-                                    alt="avatar"
-                                    class="w-full h-full rounded-full" />
-                                </div>
+                                <img src="{{ $user->image ? asset('/storage/'.$user->image) : asset('img/images.png') }}"
+                                    alt="avatar" class="w-10 h-10 rounded-full object-cover" />
                                 <div class="flex flex-col">
                                     <div class="flex space-x-1 items-center">
                                         <h3 class="ml-3 font-bold text-gray-800">{{ $user->name }}</h3>

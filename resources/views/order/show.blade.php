@@ -18,10 +18,10 @@
                         <div class="flex items-center border-b border-slate-100 pb-6">
                             <img src="{{ url("https://i.pravatar.cc/150?img={!! $book->id !!}") }}"
                             alt="avatar"
-                            class="w-12 h-12 rounded-full" />
+                            class="w-10 h-10 rounded-full object-cover" />
                             <div class="flex justify-between w-full pl-4">
                                 <div class="w-9/10 flex flex-col">
-                                    <h1 class="text-lg font-bold text-slate-900">{{ $book->title }}</h1>
+                                    <h1 class="font-bold text-slate-900">{{ $book->title }}</h1>
                                     <h3 class="text-sm text-indigo-700">{{ $book->author }}</h3>
                                 </div>
                                 <div role="img" aria-label="bookmark" class="w-1/10 text-indigo-700">

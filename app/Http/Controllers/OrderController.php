@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Book;
 use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
@@ -41,7 +42,13 @@ class OrderController extends Controller
      */
     public function store(StoreOrderRequest $request)
     {
-        //
+        $validated = [
+            "user_id" => Auth::user()->id,
+            "order_date" => Carbon::now()
+        ];
+        $order = Order::create($validated);
+        Book::findOrFail($request->book_id)->update(['order_id' => $order->id]);
+        return redirect("/book")->with('success', 'Book succesfully rented');
     }
 
     /**
@@ -52,6 +59,11 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
+        if(Auth::user()->role != 'admin') {
+            if (Auth::user()->id != $order->user_id) {
+                abort('401', 'This Action is Unauthorized');
+            }
+        }
         return view('order.show', [
             "books" => $order->book
         ]);
@@ -88,6 +100,13 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        //
+        if(Auth::user()->role != 'admin') {
+            if (Auth::user()->id != $order->user_id) {
+                abort('401', 'This Action is Unauthorized');
+            }
+        }
+        Book::where('order_id', '=', $order->id)->update(['order_id' => null]);
+        $order->delete();
+        return redirect()->back()->with('success', 'Order successfully deleted');
     }
 }

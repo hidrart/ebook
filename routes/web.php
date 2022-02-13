@@ -40,6 +40,10 @@ Route::group(['middleware' => ['auth', 'role:admin']], function() {
 });
 
 Route::group(['middleware' => 'auth'], function() {
+    Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+    Route::get('/profile/edit', [UserController::class, 'detail']);
+    Route::put('/profile/edit', [UserController::class, 'complete']);
+    
     Route::get('/dashboard', fn() => view('dashboard'))->name('dashboard');
     Route::get('/about', fn() => view('about'))->name('about');
     
@@ -54,8 +58,8 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('/{order:id}', [OrderController::class, 'show']);
         Route::get('/edit/{order:id}', [OrderController::class, 'edit']);
         
-        Route::put('/{order:id}', [OrderController::class, 'update']);
         Route::post('/create', [OrderController::class, 'store']);     
+        Route::put('/{order:id}', [OrderController::class, 'update']);
         Route::delete('/delete/{order:id}', [OrderController::class, 'destroy']);
     });
 });

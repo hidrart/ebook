@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Egulias\EmailValidator\Result\Result;
 
 class UserController extends Controller
 {
@@ -15,7 +18,7 @@ class UserController extends Controller
     public function index()
     {   
         return view('admin.index', [
-            "users" => User::latest()->filter(request(['username', 'role']))->paginate(10)
+            "users" => User::oldest()->filter(request(['username', 'role']))->paginate(10)
         ]);
     }
 
@@ -24,9 +27,38 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function profile()
     {
-        //
+        return view('user.index', [
+            "user" => Auth::user(),
+            "orders" => Auth::user()->order,
+        ]);
+    }
+
+    public function detail() 
+    {
+        return view('user.edit', [
+            "user" => Auth::user()
+        ]);
+    }
+
+    public function complete(Request $request) 
+    {
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'role' => ['required', 'string'],
+            'image' => ['image', 'file', 'max:2048']
+        ]);
+
+        if($request->file('image')) {
+            if($request->before) {
+                Storage::delete($request->before);
+            }
+            $validated['image'] = $request->file('image')->store('image');
+        }
+
+        $request->user()->update($validated);
+        return redirect()->route('profile')->with('success', 'User successfully updated');
     }
 
     /**
@@ -39,7 +71,6 @@ class UserController extends Controller
     {
         //
     }
-
     /**
      * Display the specified resource.
      *

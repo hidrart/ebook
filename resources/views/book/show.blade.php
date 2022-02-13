@@ -62,14 +62,14 @@
                 <div class="flex items-center border-b border-slate-100 pb-6">
                     <img src="{{ url("https://i.pravatar.cc/150?img={!! $book->id !!}") }}"
                     alt="avatar"
-                    class="w-12 h-12 rounded-full" />
+                    class="w-10 h-10 rounded-full object-cover" />
                     <div class="flex justify-between w-full pl-4">
                         <div class="w-9/10 flex flex-col">
-                            <h1 class="text-lg font-bold text-slate-900">{{ $book->title }}</h1>
+                            <h1 class="font-bold text-slate-900">{{ $book->title }}</h1>
                             <h3 class="text-sm text-indigo-700">{{ $book->author }}</h3>
                         </div>
                         <div role="img" aria-label="bookmark" class="w-1/10 text-indigo-700">
-                            @if ($book->order_id == null)
+                            @if (is_null($book->order_id))
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -86,6 +86,25 @@
                     </div>
                 </div>
                 <p class="text-slate-500 text-justify mt-4">{!! nl2br(e($book->description)) !!}</p>
+                @if (is_null($book->order_id))
+                <form method="POST" action="{{ url("/order/create") }}" class="mt-10">
+                    @csrf
+                    <input type="book_id" name="book_id" class="hidden" value="{{ $book->id }}">
+                    <button
+                        class="bg-indigo-200 py-2 px-4 text-indigo-700 rounded-lg cursor-pointer flex items-center space-x-2">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                            </svg>
+                        </span>
+                        <span>
+                            Rent
+                        </span>
+                    </button>
+                </form>
+                @endif
             </article>
         </div>
     </div>

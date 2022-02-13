@@ -12,7 +12,8 @@ class Book extends Model
     protected $fillable = [
         'title',
         'author',
-        'description'
+        'description',
+        'order_id'
     ];
 
     protected $load = ['order'];
