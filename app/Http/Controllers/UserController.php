@@ -123,7 +123,9 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        Storage::delete($user->image);
+        if ($user->image) {
+            Storage::delete($user->image);
+        }
         $user->delete();
         return redirect('/admin')->with('success', 'User successfully deleted!');
     }

@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
             "role" => "admin"
         ]);
         
-        User::factory(10)->create();
-        Book::factory(30)->create();
+        User::factory(20)->create();
+        Book::factory(50)->create();
     }
 }
