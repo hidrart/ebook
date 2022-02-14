@@ -59,7 +59,7 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('/edit/{order:id}', [OrderController::class, 'edit']);
         
         Route::put('/{order:id}', [OrderController::class, 'update']);
-        Route::post('/order/create', [OrderController::class, 'store']);
+        Route::post('/create', [OrderController::class, 'store']);
         Route::delete('/delete/{order:id}', [OrderController::class, 'destroy']);
     });
 
