@@ -60,10 +60,8 @@
             </div>
             <article class="p-10 mt-10 bg-white rounded-lg">
                 <div class="flex items-center border-b border-slate-100 pb-6">
-                    <img src="{{ url("https://i.pravatar.cc/150?img={!! $book->id !!}") }}"
-                    alt="avatar"
-                    class="w-12 h-12 rounded-full" />
-                    <div class="flex justify-between w-full pl-4">
+
+                    <div class="flex justify-between w-full ">
                         <div class="w-9/10 flex flex-col">
                             <h1 class="text-lg font-bold text-slate-900">{{ $book->title }}</h1>
                             <h3 class="text-sm text-indigo-700">{{ $book->author }}</h3>
