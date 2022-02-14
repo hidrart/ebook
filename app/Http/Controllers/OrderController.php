@@ -41,14 +41,22 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(StoreOrderRequest $request)
-    {
+    {   
         $validated = [
             "user_id" => Auth::user()->id,
             "order_date" => Carbon::now()
         ];
+        
         $order = Order::create($validated);
-        Book::findOrFail($request->book_id)->update(['order_id' => $order->id]);
-        return redirect("/book")->with('success', 'Book succesfully rented');
+        
+        foreach (Auth::user()->cart as $cart) {
+            foreach ($cart->book as $book) {
+                Book::findOrFail($book->id)->update(['cart_id' => null, 'order_id' => $order->id]);
+            }
+            $cart->delete();
+        }
+        
+        return redirect('/book')->with('success', 'Book succesfully Ordered');
     }
 
     /**

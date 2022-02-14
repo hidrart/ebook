@@ -25,7 +25,7 @@
                                     <h3 class="text-sm text-indigo-700">{{ $book->author }}</h3>
                                 </div>
                                 <div role="img" aria-label="bookmark" class="w-1/10 text-indigo-700">
-                                    @if ($book->order_id == null)
+                                    @if (is_null($book->cart_id) and is_null($book->order_id))
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

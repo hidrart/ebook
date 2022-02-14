@@ -25,7 +25,7 @@ class User extends Authenticatable
         'image'
     ];
 
-    protected $with = ['order'];
+    protected $with = ['order', 'cart'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -50,6 +50,10 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
+    public function cart() {
+        return $this->hasMany(Cart::class);
+    }
+    
     public function scopeFilter($query, array $filter) {
         $query->when($filter['username'] ?? false, function($query, $username) {
             $query->where('name', 'like', '%' . $username . '%');

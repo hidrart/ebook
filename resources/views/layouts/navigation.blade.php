@@ -28,6 +28,17 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('cart')" :active="request()->segment(1) == 'cart'" class="relative">
+                        <p>{{ __('Cart') }}</p>
+                        @if (Auth::user()->cart->first())
+                        <div
+                            class="h-4 w-4 absolute bg-indigo-700 text-white text-[.6em] rounded-full p-1 flex items-center justify-center top-0 right-0 mt-4 -mr-4">
+                            <p class="">{{ Auth::user()->cart->count() }}</p>
+                        </div>
+                        @endif
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('order')" :active="request()->segment(1) == 'order'">
                         {{ __('Order') }}
                     </x-nav-link>

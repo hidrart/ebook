@@ -13,13 +13,19 @@ class Book extends Model
         'title',
         'author',
         'description',
-        'order_id'
+        'order_id',
+        'cart_id'
     ];
 
-    protected $load = ['order'];
+    protected $load = ['order', 'cart'];
+
 
     public function order() {
         return $this->belongsTo(Order::class);
+    }
+
+    public function cart() {
+        return $this->belongsTo(Cart::class);
     }
 
     public function scopeFilter($query, array $filter) {    

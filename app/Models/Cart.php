@@ -5,17 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Order extends Model
+class Cart extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
         'user_id',
-        'order_date',
     ];
-    
-    protected $with = ['book'];
+
     protected $load = ['user'];
+    protected $book = ['book'];
 
     public function user() {
         return $this->belongsTo(User::class);
