@@ -63,7 +63,7 @@
                             <div class="flex space-x-3 items-center">
                                 <img src="{{ Auth::user()->image ? asset('/storage/'.Auth::user()->image):asset('img/images.png') }}"
                                     alt="avatar" class="w-7 h-7 rounded-full object-cover" />
-                                <div>{{ Auth::user()->name }}</div>
+                                <div>{{ Auth::user()->username }}</div>
                             </div>
                             <div class="ml-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
@@ -169,7 +169,7 @@
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4">
-                <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
+                <div class="font-medium text-base text-gray-800">{{ Auth::user()->username }}</div>
                 <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
             </div>
             <div class="mt-3 space-y-1">

@@ -18,7 +18,11 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'firstname',
+        'middlename',
+        'lastname',
+        'username',
+        'gender',
         'email',
         'password',
         'role',
@@ -56,7 +60,7 @@ class User extends Authenticatable
     
     public function scopeFilter($query, array $filter) {
         $query->when($filter['username'] ?? false, function($query, $username) {
-            $query->where('name', 'like', '%' . $username . '%');
+            $query->where('username', 'like', '%' . $username . '%');
         });
         $query->when($filter['role'] ?? false, function($query, $role) {
             $query->where('role', 'like', '%' . $role . '%');

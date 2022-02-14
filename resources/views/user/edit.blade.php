@@ -33,7 +33,7 @@
                 </div>
                 <div class="flex flex-col">
                     <div class="flex space-x-1 items-center">
-                        <h3 class="ml-3 font-bold text-gray-800">{{ $user->name }}</h3>
+                        <h3 class="ml-3 font-bold text-gray-800">{{ $user->username }}</h3>
                         @if ($user->role == 'admin')
                         <div class="pt-0.5">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-indigo-700" viewBox="0 0 20 20"
@@ -50,29 +50,70 @@
             </div>
             <div class="p-10 mt-10 bg-white rounded-lg">
                 <h2 class="text-lg font-bold">Edit User Data</h2>
-                <form method="POST" action="{{ url("/profile/edit") }}" class="mt-8 flex flex-col items-start
-                    gap-6" enctype="multipart/form-data">
+                <form method="POST" action="{{ url("/profile/edit") }}" class="mt-8 flex flex-col gap-8"
+                    enctype="multipart/form-data">
                     @method('put')
                     @csrf
                     <x-validation-errors class="mb-2" :errors="$errors" />
-                    <label class="block w-full">
-                        <span class="text-gray-700">Username</span>
-                        <input type="text" name="name"
-                            class="rounded-md border-0 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full bg-gray-100 mt-2"
-                            value="{{ old('name', $user->name) }}">
-                    </label>
-                    <label class="block w-full">
-                        <span class="text-gray-700">User email</span>
-                        <input type="email" name="email"
-                            class="rounded-md border-0 w-full bg-gray-100 text-gray-400 mt-2"
-                            value="{{ old('email', $user->email) }}" disabled>
-                    </label>
-                    <label class="block w-full">
-                        <span class="text-gray-700">Choose profile photo</span>
-                        <input type="file" name="image"
-                            class="w-full text-slate-500 bg-gray-100 rounded-md file:mr-4  file:py-2.5 file:px-4 file:rounded-l-md file:border-0 file:bg-indigo-200 file:text-indigo-700 file:font-sans mt-2 file:cursor-pointer" />
-                    </label>
-                    <input type="hidden" class="hidden" value="{{ $user->image }}" name="before">
+                    <div class="grid gap-6 lg:grid-cols-2">
+                        <label class="block w-full">
+                            <span class="text-gray-700">First Name</span>
+                            <input type="text" name="firstname"
+                                class="rounded-md border-0 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full bg-gray-100 mt-2"
+                                value="{{ old('firstname', $user->firstname) }}">
+                        </label>
+                        <label class="block w-full">
+                            <span class="text-gray-700">Middle Name</span>
+                            <input type="text" name="middlename"
+                                class="rounded-md border-0 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full bg-gray-100 mt-2"
+                                value="{{ old('middlename', $user->middlename) }}">
+                        </label>
+                        <label class="block w-full">
+                            <span class="text-gray-700">Last Name</span>
+                            <input type="text" name="lastname"
+                                class="rounded-md border-0 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full bg-gray-100 mt-2"
+                                value="{{ old('lastname', $user->lastname) }}">
+                        </label>
+                        <label class="block w-full">
+                            <span class="text-gray-700">Username</span>
+                            <input type="text" name="username"
+                                class="rounded-md border-0 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full bg-gray-100 mt-2"
+                                value="{{ old('username', $user->username) }}">
+                        </label>
+                        <label class="block w-full">
+                            <span class="text-gray-700">Gender</span>
+                            <div class="mt-2">
+                                <label class="inline-flex items-center">
+                                    <input type="radio" class="form-radio text-indigo-300 focus:ring-0" name="gender"
+                                        value="male" @if (old('gender', $user->gender) == 'male') checked @endif>
+                                    <span class="ml-2">Male</span>
+                                </label>
+                                <label class="inline-flex items-center ml-2">
+                                    <input type="radio" class="form-radio text-indigo-300 focus:ring-0" name="gender"
+                                        value="female" @if (old('gender', $user->gender) == 'female') checked @endif>
+                                    <span class="ml-2">Female</span>
+                                </label>
+                            </div>
+                        </label>
+                        <label class="block w-full">
+                            <span class="text-gray-700">User email</span>
+                            <input type="email" name="email"
+                                class="rounded-md border-0 w-full bg-gray-100 text-gray-400 mt-2"
+                                value="{{ old('email', $user->email) }}" disabled>
+                        </label>
+                        <label class="block w-full">
+                            <span class="text-gray-700">Password</span>
+                            <input type="password" name="password"
+                                class="rounded-md border-0 w-full bg-gray-100 text-gray-400 mt-2"
+                                value="{{ old('password') }}">
+                        </label>
+                        <label class="block w-full">
+                            <span class="text-gray-700">Choose profile photo</span>
+                            <input type="file" name="image"
+                                class="w-full text-slate-500 bg-gray-100 rounded-md file:mr-4  file:py-2.5 file:px-4 file:rounded-l-md file:border-0 file:bg-indigo-200 file:text-indigo-700 file:font-sans mt-2 file:cursor-pointer" />
+                        </label>
+                        <input type="hidden" class="hidden" value="{{ $user->image }}" name="before">
+                    </div>
                     <div class="flex justify-end w-full">
                         <button type="submit"
                             class=" bg-indigo-200 py-2 px-4 text-indigo-700 rounded-lg cursor-pointer flex items-center space-x-2 mt-4">

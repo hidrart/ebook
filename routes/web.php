@@ -24,7 +24,7 @@ Route::get('/', function () {
 Route::group(['middleware' => ['auth', 'role:admin']], function() {
     Route::group(['prefix' => 'admin'], function() {
         Route::get('/', [UserController::class, 'index'])->name('admin');
-        Route::get('/{user}', [UserController::class, 'show']);
+        Route::get('/{user:id}', [UserController::class, 'show']);
         Route::get('/edit/{user:id}', [UserController::class, 'edit']);
         Route::put('/{user:id}', [UserController::class, 'update']);
         Route::delete('/delete/{user:id}', [UserController::class, 'destroy']);
@@ -48,7 +48,6 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/dashboard', fn() => view('dashboard'))->name('dashboard');
     Route::get('/about', fn() => view('about'))->name('about');
     
-    
     Route::group(['prefix' => 'book'], function() {
         Route::get('/', [BookController::class, 'index'])->name('book');
         Route::get('/{book:id}', [BookController::class, 'show']);
@@ -56,12 +55,11 @@ Route::group(['middleware' => 'auth'], function() {
     
     Route::group(['prefix' => 'order'], function() {
         Route::get('/', [OrderController::class, 'index'])->name('order');
-        Route::get('/order/create', [OrderController::class, 'create']);
         Route::get('/{order:id}', [OrderController::class, 'show']);
         Route::get('/edit/{order:id}', [OrderController::class, 'edit']);
         
         Route::put('/{order:id}', [OrderController::class, 'update']);
-        Route::post('/order/create', [OrderController::class, 'store']);
+        Route::post('/create', [OrderController::class, 'store']);
         Route::delete('/delete/{order:id}', [OrderController::class, 'destroy']);
     });
 

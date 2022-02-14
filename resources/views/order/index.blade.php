@@ -32,7 +32,7 @@
                                     alt="avatar" class="w-10 h-10 rounded-full object-cover" />
                                 <div class="flex flex-col">
                                     <div class="flex space-x-1 items-center">
-                                        <h3 class="ml-3 font-bold text-gray-800">{{ $user->name }}</h3>
+                                        <h3 class="ml-3 font-bold text-gray-800">{{ $user->username }}</h3>
                                         @if ($user->role == 'admin')
                                         <div class="pt-0.5">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-indigo-700"
