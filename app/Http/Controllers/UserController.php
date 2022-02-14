@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use PharIo\Manifest\Author;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Egulias\EmailValidator\Result\Result;
+use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
@@ -45,7 +47,12 @@ class UserController extends Controller
     public function complete(Request $request) 
     {
         $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'firstname' => ['required', 'string', 'max:255'],
+            'middlename' => ['max:255'],
+            'lastname' => ['required', 'string', 'max:255'],
+            'gender' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255'],
+            'password' => ['required', Password::defaults()],
             'image' => ['image', 'file', 'max:2048']
         ]);
 
@@ -55,6 +62,8 @@ class UserController extends Controller
             }
             $validated['image'] = $request->file('image')->store('image');
         }
+
+        $validated['password'] = bcrypt($validated['password']);
 
         $request->user()->update($validated);
         return redirect()->route('profile')->with('success', 'User successfully updated');
@@ -105,11 +114,24 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, User $user)
-    {
+    {   
+
         $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'firstname' => ['max:255'],
+            'middlename' => ['max:255'],
+            'lastname' => ['max:255'],
+            'gender' => ['max:255'],
+            'username' => ['required', 'string', 'max:255'],
             'role' => ['required', 'string'],
+            'image' => ['image', 'file', 'max:2048']
         ]);
+
+        if($request->file('image')) {
+            if($request->before) {
+                Storage::delete($request->before);
+            }
+            $validated['image'] = $request->file('image')->store('image');
+        }
 
         $user->update($validated);
         return redirect("/admin")->with('success', 'User successfully updated');

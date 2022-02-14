@@ -46,7 +46,7 @@ class CartController extends Controller
         ];
         $cart = Cart::create($validated);
         Book::findOrFail($request->book_id)->update(['cart_id' => $cart->id]);
-        return redirect("/book")->with('success', 'Book succesfully added to Cart!');
+        return redirect("/cart")->with('success', 'Book succesfully added to Cart!');
     }
 
     /**

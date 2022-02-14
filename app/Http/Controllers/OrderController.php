@@ -56,7 +56,7 @@ class OrderController extends Controller
             $cart->delete();
         }
         
-        return redirect('/book')->with('success', 'Book succesfully Ordered');
+        return redirect('/order')->with('success', 'Book succesfully Ordered');
     }
 
     /**

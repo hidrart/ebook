@@ -42,6 +42,11 @@
                     </button>
                 </form>
             </div>
+            @endif
+            @if (session()->has('success'))
+            <x-validation-success class="mt-10" :success="session('success')" />
+            @endif
+            @if ($carts->first())
             <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3 w-full mt-10">
                 @foreach ($carts as $cart)
                 <a href="{{ url("/cart/$cart->id") }}" class="w-full bg-white p-10 rounded-lg">
